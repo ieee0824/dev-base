@@ -1,6 +1,7 @@
 FROM debian:jessie
 
 MAINTAINER ieee0824 
+ENV GLOBAL_GO_VERSION 1.7.3
 
 RUN set -eu && \
 	apt-get update && \
@@ -48,4 +49,11 @@ RUN mkdir -p /root/go
 ENV GOPATH /root/go
 ENV PATH /root/go/bin:$PATH
 
+# default go version
+RUN set -eu && \
+	echo $GLOBAL_GO_VERSION && \
+	goenv install $GLOBAL_GO_VERSION && \
+	goenv global $GLOBAL_GO_VERSION
+
 WORKDIR /root
+
