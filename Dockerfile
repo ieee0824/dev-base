@@ -19,6 +19,7 @@ RUN set -eu && \
 # build vim
 RUN set -eu && \
 	mkdir -p /tmp/vim-build && \
+	cd /tmp/vim-build && \ 
 	wget ftp://ftp.vim.org/pub/vim/unix/vim-7.4.tar.bz2 && \
 	tar xvf vim-7.4.tar.bz2 && \
 	cd vim74 && \
@@ -36,3 +37,15 @@ RUN set -eu && \
 	rm -rf /tmp/vim-build && \
 	vim --version
 
+# install Go
+RUN set -eu && \
+	git clone https://github.com/wfarr/goenv.git /root/.goenv && \
+	echo 'eval "$(goenv init -)"' >> $HOME/.bashrc
+
+ENV PATH /root/.goenv/bin:$PATH
+
+RUN mkdir -p /root/go
+ENV GOPATH /root/go
+ENV PATH /root/go/bin:$PATH
+
+WORKDIR /root
