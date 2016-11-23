@@ -5,19 +5,24 @@ set modeline
 set modelines=5
 set tabstop=4
 set shiftwidth=4
+highlight LineNr ctermfg=darkgray ctermbg=cyan
 
 call plug#begin('~/.vim/plugged')
+	Plug 'altercation/vim-colors-solarized'
+	Plug 'croaker/mustang-vim'
+	Plug 'nanotech/jellybeans.vim'
 	Plug 'tomasr/molokai'
 	Plug 'fatih/vim-go'
 	Plug 'Shougo/neocomplete.vim'
 	Plug 'bling/vim-airline'
-	Plug 'scrooloose/nerdtree', { 'on':  'NERDTree' }
+	Plug 'scrooloose/nerdtree'
 	Plug 'scrooloose/nerdcommenter'
 	Plug 'jistr/vim-nerdtree-tabs'
 	Plug 'scrooloose/syntastic'
 	Plug 'altercation/vim-colors-solarized'
 call plug#end()
-filetype plugin indent on
+filetype off
+filetype plugin indent off
 
 let s:plug = {"plugs": get(g:, 'plugs', {})}
 function! s:plug.is_installed(name)
@@ -43,6 +48,7 @@ endif
 
 " neocomplete
 let g:neocomplete#enable_at_startup = 1
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 
 " vim go
 " disable open browser after posting snippet
@@ -89,6 +95,11 @@ let NERDTreeShowHidden=1
 let g:NERDTreeShowBookmarks=1
 let g:vim_json_syntax_conceal = 0
 
+if s:plug.is_installed('scrooloose/nerdtree')
+	autocmd vimenter * NERDTree
+endif
+
+
 " NERDTress File highlighting
 function! NERDTreeHighlightFile(extension, fg, bg, guifg, guibg)
  exec 'autocmd filetype nerdtree highlight ' . a:extension .' ctermbg='. a:bg .' ctermfg='. a:fg .' guibg='. a:guibg .' guifg='. a:guifg
@@ -111,3 +122,4 @@ call NERDTreeHighlightFile('js', 'Red', 'none', '#ffa500', '#151515')
 call NERDTreeHighlightFile('php', 'Magenta', 'none', '#ff00ff', '#151515')
 
 
+filetype plugin indent on
