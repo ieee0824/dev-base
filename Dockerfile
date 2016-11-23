@@ -8,7 +8,7 @@ ENV GLIBC_VERSION=2.23-r3
 
 RUN \ 
 #Adding GIT and BUILD Tools AND ncurses-dev
-    apk --update add --no-cache --virtual=build-dependencies curl tmux irssi ctags wget ca-certificates git build-base ncurses-dev lua5.2-dev lua5.2-libs lua5.2 lua5.2-posix autoconf automake libtool libstdc++ luajit luajit-dev \
+    apk --update add --no-cache --virtual=build-dependencies openssh curl tmux irssi ctags wget ca-certificates git build-base ncurses-dev lua5.2-dev lua5.2-libs lua5.2 lua5.2-posix autoconf automake libtool libstdc++ luajit luajit-dev \
 
 
  #Install glibc for alpine because golang -race depends on that
@@ -75,9 +75,13 @@ RUN \
     && rm -rf /var/cache/apk/* /tmp/* /var/tmp/*  /go/src/* \
 
 #CLEANUP
-	&& rm -rf */.git
+	&& rm -rf */.git 
 
 RUN curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
-    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim 
 
 RUN vim +PlugInstall +qall
+RUN ln -s /go /root/go
+
+WORKDIR /root
+
