@@ -18,4 +18,4 @@ alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
 
-PS1='[\[\e[34m\] \u@\s \[\e[32m\]\w \[\e[37m\]] $ '
+PS1='\[\e[37m\][\[\e[92m\] \u\[\e[91m\]@\[\e[92m\]\s \[\e[33m\]\w \[\e[37m\]]\$ '
