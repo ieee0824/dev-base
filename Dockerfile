@@ -6,7 +6,7 @@ ADD root/ /root/
  
 ENV GLIBC_VERSION=2.23-r3 
 
-RUN \ 
+RUN set -eux && \ 
 #Adding GIT and BUILD Tools AND ncurses-dev
     apk --update add --no-cache --virtual=build-dependencies openssh curl tmux irssi ctags wget ca-certificates git build-base ncurses-dev lua5.2-dev lua5.2-libs lua5.2 lua5.2-posix autoconf automake libtool libstdc++ luajit luajit-dev \
 
@@ -85,3 +85,9 @@ RUN ln -s /go /root/go
 
 WORKDIR /root
 
+RUN apk -Uuv add groff less python py-pip \
+	&& pip install --upgrade pip \
+	&& pip install awscli --ignore-installed six \
+	&& pip install aws-shell
+
+CMD ["bash"]

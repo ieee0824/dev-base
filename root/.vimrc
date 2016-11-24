@@ -5,7 +5,6 @@ set modeline
 set modelines=5
 set tabstop=4
 set shiftwidth=4
-highlight LineNr ctermfg=darkgray ctermbg=cyan
 
 call plug#begin('~/.vim/plugged')
 	Plug 'altercation/vim-colors-solarized'
@@ -41,7 +40,7 @@ nnoremap <S-Down> <Esc>:ls<CR>:b<Space>
 
 
 " molokai
-if s:plug.is_installed('tomasr/molokai')
+if s:plug.is_installed('molokai')
 	syntax on
 	colorscheme molokai
 endif
