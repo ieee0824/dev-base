@@ -1,11 +1,16 @@
+set number
 set encoding=utf-8
 scriptencoding utf-8
 set modeline
 set modelines=5
 set tabstop=4
 set shiftwidth=4
+highlight LineNr ctermfg=darkgray ctermbg=cyan
 
 call plug#begin('~/.vim/plugged')
+	Plug 'altercation/vim-colors-solarized'
+	Plug 'croaker/mustang-vim'
+	Plug 'nanotech/jellybeans.vim'
 	Plug 'tomasr/molokai'
 	Plug 'fatih/vim-go'
 	Plug 'Shougo/neocomplete.vim'
@@ -13,8 +18,11 @@ call plug#begin('~/.vim/plugged')
 	Plug 'scrooloose/nerdtree'
 	Plug 'scrooloose/nerdcommenter'
 	Plug 'jistr/vim-nerdtree-tabs'
+	Plug 'scrooloose/syntastic'
+	Plug 'altercation/vim-colors-solarized'
 call plug#end()
-filetype plugin indent on
+filetype off
+filetype plugin indent off
 
 let s:plug = {"plugs": get(g:, 'plugs', {})}
 function! s:plug.is_installed(name)
@@ -40,6 +48,7 @@ endif
 
 " neocomplete
 let g:neocomplete#enable_at_startup = 1
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 
 " vim go
 " disable open browser after posting snippet
@@ -79,3 +88,38 @@ au FileType go nmap <Leader>dv <Plug>(go-def-vertical)
 au FileType go nmap <Leader>dt <Plug>(go-def-tab)
 " rename the identifier under the cursor to a new name
 au FileType go nmap <Leader>e <Plug>(go-rename)
+
+" NERDTress File highlighting
+" show hiddenfiles
+let NERDTreeShowHidden=1
+let g:NERDTreeShowBookmarks=1
+let g:vim_json_syntax_conceal = 0
+
+if s:plug.is_installed('scrooloose/nerdtree')
+	autocmd vimenter * NERDTree
+endif
+
+
+" NERDTress File highlighting
+function! NERDTreeHighlightFile(extension, fg, bg, guifg, guibg)
+ exec 'autocmd filetype nerdtree highlight ' . a:extension .' ctermbg='. a:bg .' ctermfg='. a:fg .' guibg='. a:guibg .' guifg='. a:guifg
+ exec 'autocmd filetype nerdtree syn match ' . a:extension .' #^\s\+.*'. a:extension .'$#'
+endfunction
+
+
+call NERDTreeHighlightFile('go', 'yellow', 'none', 'yellow', '#151515')
+call NERDTreeHighlightFile('py', 'yellow', 'none', 'yellow', '#151515')
+call NERDTreeHighlightFile('md', 'blue', 'none', '#3366FF', '#151515')
+call NERDTreeHighlightFile('yml', 'yellow', 'none', 'yellow', '#151515')
+call NERDTreeHighlightFile('config', 'yellow', 'none', 'yellow', '#151515')
+call NERDTreeHighlightFile('conf', 'yellow', 'none', 'yellow', '#151515')
+call NERDTreeHighlightFile('json', 'yellow', 'none', 'yellow', '#151515')
+call NERDTreeHighlightFile('html', 'yellow', 'none', 'yellow', '#151515')
+call NERDTreeHighlightFile('styl', 'cyan', 'none', 'cyan', '#151515')
+call NERDTreeHighlightFile('css', 'cyan', 'none', 'cyan', '#151515')
+call NERDTreeHighlightFile('rb', 'Red', 'none', 'red', '#151515')
+call NERDTreeHighlightFile('js', 'Red', 'none', '#ffa500', '#151515')
+call NERDTreeHighlightFile('php', 'Magenta', 'none', '#ff00ff', '#151515')
+
+
+filetype plugin indent on
