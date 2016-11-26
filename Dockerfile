@@ -1,9 +1,5 @@
 FROM golang:1.7.3-alpine
 
-
-#Copies .vimrc to root
-ADD root/ /root/
- 
 ENV GLIBC_VERSION=2.23-r3 
 
 RUN set -eux && \ 
@@ -80,8 +76,11 @@ RUN set -eux && \
 RUN curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim 
 
-RUN vim +PlugInstall +qall
 RUN ln -s /go /root/go
+
+ADD root/.vimrc /root/.vimrc
+ADD root/.bashrc /root/.bashrc
+RUN vim +PlugInstall +qall
 
 WORKDIR /root
 
