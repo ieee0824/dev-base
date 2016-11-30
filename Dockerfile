@@ -23,4 +23,6 @@ RUN apt-get update && \
     /tmp/* \
     /var/tmp/*
 
+RUN ln -s /go /root/go
+
 CMD ["/bin/bash"]
