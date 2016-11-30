@@ -2,7 +2,7 @@ FROM golang:latest
 
 ADD root /root
 
-ENV RUST_VERSION=1.13.0
+ENV RUST_VERSION=nightly
 
 RUN apt-get update && \
   DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
